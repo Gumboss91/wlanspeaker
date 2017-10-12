@@ -1,7 +1,6 @@
 # wlanspeaker
 
-Auto
-
+Autoload:
 unter /etc/rc.local die Zeile Hinzufügen
   python /home/pi/wlanspeaker/WlanSpeakerServer.py
 
