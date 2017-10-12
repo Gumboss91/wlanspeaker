@@ -1,6 +1,7 @@
 import pygame
 import sys
 import socket
+import re
 
 HOST = ''
 PORT = 5005
@@ -33,23 +34,42 @@ while 1:
 		if data.strip() == 'play':
 			print 'Play'
 			pygame.mixer.music.play()
+
+		if data.strip() == 'playloop':
+			print 'Play in infinit Loop'
+			pygame.mixer.music.play(-1)
+		
+		if data.strip () == 'playn':
+			print 'Playing n times '
+                        c=re.findall( r'\d+\.*\d*',data.strip())
+                        pygame.mixer.music.paly(float(c[0]))
+
 		if data.strip() == 'pause':
 			print 'Pause'
 			pygame.mixer.music.pause()
+
 		if data.strip() == 'unpause':
 			print 'Replay'
 			pygame.mixer.music.unpause()
+
 		if data.strip() ==  'stop':
 			print 'Stop'
 			pygame.mixer.music.stop()
+
+		if strData[0:3] == 'vol':
+			print 'vol: '
+			c=re.findall( r'\d+\.*\d*',data.strip())
+			pygame.mixer.music.set_volume(float(c[0]))
 		if data.strip() == 'exit':
 			print 'Beende Server'
 			break
+
 		if strData[0:4] == 'load':
 			print 'load new File'
 			pygame.mixer.music.load("/home/pi/Music/"+strData[5:])
 			print 'succsessfull load'
-	except RuntimeError:
+
+	except ValueError, RuntimeError:
 			print 'error catchted'
 
 s.close()
